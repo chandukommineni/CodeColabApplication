@@ -9,9 +9,9 @@ app.use(cors());
 const server=http.createServer(app)
 
 const io=new Server(server, {
-    path: '/socket.io', 
+
     cors: {
-        origin: "http://localhost:3000", // Change this to the URL of your frontend if different
+        origin: "*", // Change this to the URL of your frontend if different
         methods: ["GET", "POST"],
         credentials: true
     }
