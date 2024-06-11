@@ -3,11 +3,17 @@ const app=express()
 const http=require("http")
 const {Server}=require("socket.io")
 const ACTIONS = require('./Action');
-
+const cors=require('cors')
+app.use(cors());
 
 const server=http.createServer(app)
 
-const io=new Server(server)
+const io=new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+})
 const userSocketMap={
 
 };
