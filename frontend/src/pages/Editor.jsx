@@ -46,7 +46,6 @@ const Editor = ({socketRef,roomId,onCodeChange}) => {
   
   useEffect(() => {
     function init() {
-      console.log(atob("ICBGaWxlICIvYm94L3NjcmlwdC5weSIsIGxpbmUgMQogICAgZGVmIGhpOgog"))
 
      editorRef.current= CodeMirror.fromTextArea(document.getElementById("realTimeEditor"), {
         mode: { name: "javascript", json: true },
@@ -97,7 +96,7 @@ const Editor = ({socketRef,roomId,onCodeChange}) => {
 
   return (
     <div className="editorContainer">
-      <textarea id="realTimeEditor"></textarea>
+       <textarea id="realTimeEditor" ></textarea>
 
     <div className="outputContainer">
           <div className="outputButtons">
@@ -109,7 +108,7 @@ const Editor = ({socketRef,roomId,onCodeChange}) => {
           </select>
 
           <div className="outputText">
-            <textarea  id="output" className="output">
+            <textarea  id="output" className="output" readOnly={true}>
             
             </textarea>
           </div>

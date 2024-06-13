@@ -207,6 +207,8 @@ body::-webkit-scrollbar {
 background-color: transparent;
  color: white;
  font-size: 15px;
+ margin-right: 7px;
+ margin-top: 5px;
 
 }
 .InputBtnO{
