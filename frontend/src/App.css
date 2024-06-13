@@ -144,12 +144,75 @@ footer a{
 }
 .outputContainer{
   min-height: 37vh;
-  background-color: #1C1E29;
+  background-color: #323338;
+  display: flex;
 }
 .outputButtons{
 
   padding: 10px;
+  width: 80%;
 }
-/* .outputButtons button{
 
-} */
+.compilerBtn{
+  background-color: #2B824C;
+  color: white;
+  width: 150px;
+  margin-right: 20px;
+}
+.langBtn{
+
+  background-color: #2B824C;
+  color: white;
+  margin-top: 5px;
+
+}
+.outputText{
+  width: 100%;
+  height: 170px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+
+}
+.output{
+  width: 98%;
+  height: 93%;
+  background: transparent;
+ color: white;
+ font-size: 15px;
+}
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.inputO{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20%;
+  min-height: 37vh;
+}
+.inputTextO{
+  width: 100%;
+  height: 170px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  border: 1px solid white;
+
+}
+.inputBoxO{
+  width: 100%;
+  height: 93%;
+background-color: transparent;
+ color: white;
+ font-size: 15px;
+
+}
+.InputBtnO{
+  background-color: #2B824C;
+  color: white;
+  width: 90px;
+  margin-top: 10px;
+
+}

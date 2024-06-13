@@ -9,13 +9,45 @@ import { ACTIONS } from "../Action";
 
 const Editor = ({socketRef,roomId,onCodeChange}) => {
   const [language,setLanguage]=useState("python")
+ 
   const editorRef=useRef(null)
-  const handleCompiling=()=>{
+  const handleCompiling = () => {
+    document.getElementById("output").value="Compiling ....."
 
-  }
+    const code = editorRef.current.getValue();
+    const input=document.getElementById('input').value
+    console.log(input)
+    fetch('http://localhost:5000/compile', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ code, language,input,roomId}),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response from the backend
+       
+        if (data.error || data.errorDescription!=="Accepted"){
+          document.getElementById("output").value=atob(data.error)
+        }
+        else{
+
+          document.getElementById("output").value=(atob(data.output))
+
+        }
+       
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+  
   
   useEffect(() => {
     function init() {
+      console.log(atob("ICBGaWxlICIvYm94L3NjcmlwdC5weSIsIGxpbmUgMQogICAgZGVmIGhpOgog"))
+
      editorRef.current= CodeMirror.fromTextArea(document.getElementById("realTimeEditor"), {
         mode: { name: "javascript", json: true },
         theme: "dracula",
@@ -51,26 +83,52 @@ const Editor = ({socketRef,roomId,onCodeChange}) => {
 
   },[socketRef.current])
 
+  useEffect(() => {
+    if (socketRef.current) {
+      socketRef.current.on('output', (data) => {
+        const output = data.error ? atob(data.error) : atob(data.output);
+        document.getElementById("output").value = output;
+      });
+    }
+    return () => {
+      socketRef.current.off('output');
+    };
+  }, [socketRef.current]);
+
   return (
     <div className="editorContainer">
       <textarea id="realTimeEditor"></textarea>
 
-    {/* <div className="outputContainer">
+    <div className="outputContainer">
           <div className="outputButtons">
-            <button onClick={handleCompiling}>Compile</button>
-            <select id="exampleSelect" value={language} onChange={(e)=>setLanguage(e.target.value)}>
+            <button onClick={handleCompiling} className="btn compilerBtn">Compile</button>
+            <select id="exampleSelect" value={language} onChange={(e)=>setLanguage(e.target.value)} className="btn langBtn">
             <option value="python">Python</option>
             <option value="java">Java</option>
-            <option value="c">C</option>
+            <option value="c">C</option> 
           </select>
+
+          <div className="outputText">
+            <textarea  id="output" className="output">
+            
+            </textarea>
+          </div>
             
          </div>
-      
-          <div className="outputText">
-            <textarea  id="output"></textarea>
-          </div>
 
-    </div> */}
+         <div className="inputO " >
+         <button className="btn InputBtnO">Input</button>
+         <div className="inputTextO">
+
+         <textarea  id="input"  className="inputBoxO"></textarea>
+
+         </div>
+         
+         </div>
+      
+         
+
+    </div>
     
     
     </div>
